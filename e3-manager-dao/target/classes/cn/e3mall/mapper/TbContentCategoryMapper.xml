@@ -87,7 +87,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from tb_content_category
     where id = #{id,jdbcType=BIGINT}
@@ -103,14 +103,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="cn.e3mall.pojo.TbContentCategory" >
-    insert into tb_content_category (id, parent_id, name, 
-      status, sort_order, is_parent, 
-      created, updated)
-    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, #{isParent,jdbcType=BIT}, 
-      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
+    <selectKey keyProperty="id" resultType="long" order="AFTER">
+      select last_insert_id()
+    </selectKey>
+    insert into tb_content_category (id, parent_id, name,
+    status, sort_order, is_parent,
+    created, updated)
+    values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR},
+    #{status,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, #{isParent,jdbcType=BIT},
+    #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="cn.e3mall.pojo.TbContentCategory" >
+    <selectKey keyProperty="id" resultType="long" order="AFTER">
+      select last_insert_id()
+    </selectKey>
     insert into tb_content_category
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -206,13 +212,13 @@
   <update id="updateByExample" parameterType="map" >
     update tb_content_category
     set id = #{record.id,jdbcType=BIGINT},
-      parent_id = #{record.parentId,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=INTEGER},
-      sort_order = #{record.sortOrder,jdbcType=INTEGER},
-      is_parent = #{record.isParent,jdbcType=BIT},
-      created = #{record.created,jdbcType=TIMESTAMP},
-      updated = #{record.updated,jdbcType=TIMESTAMP}
+    parent_id = #{record.parentId,jdbcType=BIGINT},
+    name = #{record.name,jdbcType=VARCHAR},
+    status = #{record.status,jdbcType=INTEGER},
+    sort_order = #{record.sortOrder,jdbcType=INTEGER},
+    is_parent = #{record.isParent,jdbcType=BIT},
+    created = #{record.created,jdbcType=TIMESTAMP},
+    updated = #{record.updated,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
